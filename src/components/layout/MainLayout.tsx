@@ -1,5 +1,4 @@
-import { logOut } from "@/redux/auth/authSlice";
-import { useAppDispatch } from "@/redux/hook";
+
 
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
@@ -18,10 +17,7 @@ const SLIDES = [
     "https://carz.ancorathemes.com/wp-content/uploads/2024/08/slider-6-slide-2.jpg"
   ];
 const MainLayout = () => {
-  const dispatch = useAppDispatch();
-  const handleLogOut = () => {
-    dispatch(logOut());
-  };
+ 
   return (
     <div className="bg-[#f1fcf8]">
       <div>

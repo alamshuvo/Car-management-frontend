@@ -3,17 +3,30 @@ import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import sedan from "../../assets/sedan.png";
-
-
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/hook";
+import { logOut } from "@/redux/auth/authSlice";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [isLoggedIn,setIsLoggedIn]=useState(false)
+  const dispatch = useAppDispatch();
+  
   const navigate = useNavigate();
   const handleLogIn = () => {
     navigate("/login")
+  };
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token)
+
+  },[])
+  const handleLogOut = () => {
+    dispatch(logOut());
+    localStorage.removeItem("token")
+    setIsLoggedIn(false)
   };
   return (
     <div className="flex justify-between items-center   p-5 ">
@@ -65,7 +78,15 @@ const Navbar = () => {
         </NavigationMenuList>
       </NavigationMenu>
       <div>
-        <Button onClick={handleLogIn} className="bg-[#38d8a9] text-black">Login</Button>
+        {isLoggedIn ? (
+          <Button onClick={handleLogOut} className="bg-red-500 text-white">
+            Logout
+          </Button>
+        ) : (
+          <Button onClick={handleLogIn} className="bg-[#38d8a9] text-black">
+            Login
+          </Button>
+        )}
       </div>
     </div>
   );

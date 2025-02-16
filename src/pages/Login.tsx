@@ -10,11 +10,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLoginMutation } from "@/redux/auth/authApi";
+import { useLoginMutation} from "@/redux/auth/authApi";
 import { setUser, TUser } from "@/redux/auth/authSlice";
+import { useRegistationMutation } from "@/redux/features/userApi/userApi";
 import { useAppDispatch } from "@/redux/hook";
 import { varifyToken } from "@/utils/verifyToken";
-import { ArrowBigDown, ArrowBigLeft, Eye, EyeClosed } from "lucide-react";
+import {  ArrowBigLeft, Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -24,6 +25,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
+  const [register]= useRegistationMutation()
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -39,14 +41,29 @@ const Login = () => {
       const token = res.data.accessToken;
       dispatch(setUser({ user: user, token }));
       toast.success("Looged in Sucessfully", { id: toastId, duration: 2000 });
-      navigate("/");
+      navigate(`/${user.role}/dashboard`);
     } catch (error) {
       toast.error("something went wrong", { id: toastId, duration: 2000 });
     }
   };
-  const handleBack = async()=>{
-    navigate("/")
-  }
+  const handleFromRegisterSubmit = async (data) => {
+    const toastId = toast.loading("Register in");
+    try {
+      const userInfo = {
+        name:data.name,
+        email: data.email,
+        password: data.password,
+      };
+      await register(userInfo).unwrap();
+      toast.success("Register Sucessfully", { id: toastId, duration: 2000 });
+      navigate("/login");
+    } catch (error) {
+      toast.error("something went wrong", { id: toastId, duration: 2000 });
+    }
+  };
+  const handleBack = async () => {
+    navigate("/");
+  };
 
   return (
     <div>
@@ -119,7 +136,7 @@ const Login = () => {
             </CarForm>
           </TabsContent>
           <TabsContent value="regester">
-            <CarForm onSubmit={handleFormSubmit}>
+            <CarForm onSubmit={handleFromRegisterSubmit}>
               <Card>
                 <CardHeader>
                   <CardTitle className="flex justify-center">
@@ -137,12 +154,7 @@ const Login = () => {
                     name="email"
                     label="Email"
                   />
-                  <CarInput
-                    type="file"
-                    id="picture"
-                    name="picture"
-                    label="Picture"
-                  />
+
                   <div className="relative">
                     <CarInput
                       type={showPassword ? "text" : "password"}
