@@ -19,11 +19,13 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useChangePasswordMutation } from "@/redux/auth/authApi";
+import { useChangePasswordMutation, useForgetPasswordMutation } from "@/redux/auth/authApi";
+
 const UserDashboard = () => {
   const [showPassword, setShowPassword] = useState(false);
   const token = useAppSelector(useCurentToken);
-  const [changePassword]=useChangePasswordMutation()
+  const [changePassword]=useChangePasswordMutation();
+  const [forgetPassword]=useForgetPasswordMutation()
   let user;
   if (token) {
     user = varifyToken(token);
@@ -33,7 +35,7 @@ const UserDashboard = () => {
   const experisAt = moment.unix(user?.iat || 0).format("YYYY-MM-DD HH:mm:ss");
 
   // password change
-  const handlePasswordChange = async(data) => {
+  const handlePasswordChange = async(data:{oldPassword:string,newPassword:string}) => {
     const toastId = toast.loading("Changing Password");
     try {
       const userInfo = {
@@ -48,6 +50,21 @@ const UserDashboard = () => {
       toast.error("something went wrong", { id: toastId, duration: 2000 });
     }
   };
+
+  const handleForgetPasswordChange = async(data:{email:string})=>{
+    const toastId = toast.loading("Forget Password");
+    try {
+      const userInfo = {
+       email:data?.email
+      };
+      
+   
+     await forgetPassword(userInfo).unwrap()
+     toast.success("Email sent Sucessfully ", { id: toastId, duration: 2000 });
+    } catch (error) {
+      toast.error("something went wrong", { id: toastId, duration: 2000 });
+    }
+  }
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -75,14 +92,15 @@ const UserDashboard = () => {
           </div>
         </div>
         <div className="text-center  mt-10 ">
-          <CarForm  onSubmit={handlePasswordChange} >
+          
            <div className="grid grid-cols-2 gap-5" >
+           <CarForm  onSubmit={handlePasswordChange} >
            <Card className="shadow-2xl ">
               <CardHeader>
-                <CardTitle className="flex justify-center">
+                <CardTitle className="flex justify-center text-xl text-colorsa-accent">
                   Change Your Password
                 </CardTitle>
-                <CardDescription className="flex justify-center">
+                <CardDescription className="flex justify-center text-colorsa-accent">
                   Provide your credentials to register.
                 </CardDescription>
               </CardHeader>
@@ -129,23 +147,25 @@ const UserDashboard = () => {
                 </Button>
               </CardFooter>
             </Card>
+            </CarForm>
+            
 
 
 
 
 
-
+            <CarForm  onSubmit={handleForgetPasswordChange} >
             <Card className="shadow-2xl">
               <CardHeader>
-                <CardTitle className="flex justify-center">
+                <CardTitle className="flex justify-center text-xl text-colorsa-accent">
                 Forget Your Password !! 
                 </CardTitle>
-                <CardDescription className="flex justify-center">
+                <CardDescription className="flex justify-center text-colorsa-accent">
                   Provide your credentials to register.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2 ">
-             <CarInput name="email" id="email" type="email" label="Email"></CarInput>
+             <CarInput name="email" id="email" type="email" label="Email" ></CarInput>
               </CardContent>
              
               <CardFooter className="">
@@ -157,8 +177,9 @@ const UserDashboard = () => {
                 </Button>
               </CardFooter>
             </Card>
+            </CarForm>
            </div>
-          </CarForm>
+        
         </div>
       </div>
     </div>
