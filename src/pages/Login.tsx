@@ -55,7 +55,7 @@ const Login = () => {
         password: data.password,
       };
       await register(userInfo).unwrap();
-      toast.success("Register Sucessfully", { id: toastId, duration: 2000 });
+      toast.success("Register Sucessfully please log in seperately", { id: toastId, duration: 2000 });
       navigate("/login");
     } catch (error) {
       toast.error("something went wrong", { id: toastId, duration: 2000 });
@@ -130,7 +130,7 @@ const Login = () => {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant={"destructive"}>Login</Button>
+                  <Button className="bg-colorsa-primary hover:bg-colorsa-secondary hover:text-colorsa-text">Login</Button>
                 </CardFooter>
               </Card>
             </CarForm>
@@ -176,7 +176,7 @@ const Login = () => {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button type="submit" variant="destructive">
+                  <Button type="submit" className="bg-colorsa-primary hover:bg-colorsa-secondary hover:text-colorsa-text">
                     Register
                   </Button>
                 </CardFooter>

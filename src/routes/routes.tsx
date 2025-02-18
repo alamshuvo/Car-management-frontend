@@ -5,8 +5,7 @@ import { createBrowserRouter } from "react-router";
 import { adminPaths } from "./admin.route";
 import Login from "@/pages/Login";
 import { userPath } from "./user.route";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import UserDashboard from "@/pages/user/UserDashboard";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +16,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <ProtectedRoute role="admin">
-        <AdminDashboard></AdminDashboard>
+        <DashboardLayout></DashboardLayout>
       </ProtectedRoute>
     ),
     children: routeGenerator(adminPaths),
@@ -26,7 +25,7 @@ const router = createBrowserRouter([
     path: "/user",
     element: (
       <ProtectedRoute role="user">
-        <UserDashboard></UserDashboard>
+        <DashboardLayout></DashboardLayout>
       </ProtectedRoute>
     ),
     children: routeGenerator(userPath),

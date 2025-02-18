@@ -1,7 +1,4 @@
-
-
 import { Outlet } from "react-router";
-import Navbar from "./Navbar";
 import Carousel from "../components/carosul/Carosul";
 import { EmblaOptionsType } from "embla-carousel";
 import Dealership from "../components/carDealership/Dealership";
@@ -19,9 +16,8 @@ const SLIDES = [
 const MainLayout = () => {
  
   return (
-    <div className="bg-[#f1fcf8]">
+    <div className="bg-colorsa-background">
       <div>
-        <Navbar></Navbar>
         <div className="w-full h-[100vh]">
           <Carousel slides={SLIDES} options={OPTIONS}></Carousel>
         </div>
