@@ -13,11 +13,7 @@ const { Meta } = Card;
 const Featured = () => {
   const [params, setParams] = useState<TQuearyParams[] | undefined>(undefined);
   const { data: cars, isLoading, isFetching } = useGetAllCarsQuery(params);
-  const {
-    data: singleCar,
-    isLoading: singleIsLoading,
-    isFetching:singleIsFetching,
-  } = useGetCarByIdQuery(params);
+ 
   const navigate = useNavigate();
   const handleViewAll = () => {
     console.log("view all dekhabo daraa");
@@ -30,9 +26,7 @@ const Featured = () => {
   if (isLoading || isFetching) {
     return <Loading></Loading>;
   }
-  if (singleIsLoading || singleIsFetching) {
-    return <Loading></Loading>;
-  }
+
 
   return (
     <div>
