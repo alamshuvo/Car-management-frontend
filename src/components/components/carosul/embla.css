@@ -1,6 +1,5 @@
 .embla {
-    max-width:1380px;
-    margin: auto;
+  
     --slide-height: 80vh;
     --slide-spacing: 1rem;
     --slide-size: 100%;
@@ -32,7 +31,7 @@
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     gap: 1.2rem;
-    margin-top: 1.8rem;
+   
   }
   .embla__buttons {
     display: grid;

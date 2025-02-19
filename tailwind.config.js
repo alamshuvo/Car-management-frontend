@@ -13,11 +13,11 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         colorsa: {
-          text: "#0f1813",
-          background: "#fbfdfc",
-          primary: "#54ac80",
-          secondary: "#a2d7bd",
-          accent: "#7dcda5",
+          'text': '#060808',
+          'background': '#f9fcfc',
+          'primary': '#58afb1',
+          'secondary': '#9fd9da',
+          'accent': '#6dd0d3',
         },
         card: {
           DEFAULT: "hsl(var(--card))",

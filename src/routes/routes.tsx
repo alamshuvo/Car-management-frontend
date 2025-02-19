@@ -6,11 +6,29 @@ import { adminPaths } from "./admin.route";
 import Login from "@/pages/Login";
 import { userPath } from "./user.route";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import AllCars from "@/pages/user/AllCars";
+import MainLayout from "@/components/layout/MainLayout";
+import SingleCar from "@/pages/user/SingleCar";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <MainLayout></MainLayout>,
+    children:[
+     {
+      index: true,
+      element: <App></App>
+     },
+     {
+      path:"/all-cars",
+      element:<AllCars></AllCars>
+     },
+     {
+      path:`/cars/:id`,
+      element:<SingleCar></SingleCar>
+      
+     }
+    ]
   },
   {
     path: "/admin",
@@ -32,8 +50,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login></Login>,
+    element: <Login></Login>
   },
+ 
+ 
 ]);
 
 export default router;

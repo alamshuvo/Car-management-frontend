@@ -1,4 +1,4 @@
-import OrderHistory from "@/pages/user/orderHistory";
+import OrderHistory from "@/pages/user/OrderHistory";
 import UserDashboard from "@/pages/user/UserDashboard";
 
 

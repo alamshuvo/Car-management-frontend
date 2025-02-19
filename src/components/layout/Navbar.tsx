@@ -34,7 +34,7 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
   return (
-    <div className="flex justify-between items-center bg-colorsa-background  p-5 ">
+    <div className="flex justify-between items-center max-w-[1320px]  mx-auto p-4">
       <div className="flex items-center gap-2">
         <img src={sedan} alt="kk" className="h-10 w-10" />
         <p className="text-2xl font-bold text-colorsa-text ">
@@ -50,7 +50,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "bg-colorsa-secondary text-colorsa-text px-4 py-2 rounded-md"
-                  : "bg-colorsa-primary text-colorsa-text px-4 py-2 rounded-md"
+                : "text-colorsa-text px-4 py-2 border rounded-md hover:bg-colorsa-accent transition-all duration-300 ease-in-out"
               }
             >
               Home
@@ -58,14 +58,14 @@ const Navbar = () => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavLink
-              to="/car"
+              to="/all-cars"
               className={({ isActive }) =>
                 isActive
                   ? "bg-colorsa-secondary text-colorsa-text px-4 py-2 rounded-md"
-                  : "bg-colorsa-primary text-colorsa-text px-4 py-2 rounded-md"
+                  : "text-colorsa-text px-4 py-2 border rounded-md hover:bg-colorsa-accent transition-all duration-300 ease-in-out"
               }
             >
-              All Car
+              All Cars
             </NavLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -74,7 +74,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "bg-colorsa-secondary text-colorsa-text px-4 py-2 rounded-md"
-                  : "bg-colorsa-primary text-colorsa-text px-4 py-2 rounded-md"
+                   : "text-colorsa-text px-4 py-2 border rounded-md hover:bg-colorsa-accent transition-all duration-300 ease-in-out"
               }
             >
               About
@@ -87,7 +87,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "bg-colorsa-secondary text-colorsa-text px-4 py-2 rounded-md"
-                    : "bg-colorsa-primary text-colorsa-text px-4 py-2 rounded-md"
+                    : "text-colorsa-text px-4 py-2 border rounded-md hover:bg-colorsa-accent transition-all duration-300 ease-in-out"
                 }
               >
                 Dahsboard
