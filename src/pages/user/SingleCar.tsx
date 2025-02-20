@@ -1,7 +1,7 @@
 import Loading from "@/components/components/Loading";
 import { Separator } from "@/components/ui/separator";
 import { useGetCarByIdQuery } from "@/redux/features/userApi/userApi";
-import { Card, Image, Tag } from "antd";
+import { Button, Card, Image, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import { Alert, Typography } from "antd";
 
@@ -12,12 +12,16 @@ import {
   ToolOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { useAppSelector } from "@/redux/hook";
+import { useCurentToken } from "@/redux/auth/authSlice";
+import { ShoppingBag } from "lucide-react";
 
 const { Text, Link } = Typography;
 
 const SingleCar = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetCarByIdQuery(id);
+  const token = useAppSelector(useCurentToken);
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -38,6 +42,25 @@ const SingleCar = () => {
               />
             </Image.PreviewGroup>
           </Card>
+          <div className="mt-5">
+                {token ? (
+                  <div className="">
+                    <Button className="w-full bg-colorsa-secondary p-5 text-xl font-semibold text-colorsa-text">Buy Now <ShoppingBag/></Button>
+                  </div>
+                ) : (
+                  <Alert
+                    message={
+                      <div>
+                        <Text strong>Want to purchase this product?</Text>
+                        <br />
+                        Please <Link href="/login">Login</Link> to your account
+                        to start shopping!
+                      </div>
+                    }
+                    type="success"
+                  />
+                )}
+              </div>
         </div>
         <div className="">
           <Card hoverable style={{ width: 500 }}>
@@ -79,13 +102,13 @@ const SingleCar = () => {
                   Premium Quality Materials & Craftsmanship
                 </p>
               </Card>
-              <Card >
+              <Card>
                 <p>
                   <RocketOutlined style={{ color: "blue", marginRight: 8 }} />{" "}
                   Professional Grade Components
                 </p>
               </Card>
-              <Card >
+              <Card>
                 <p>
                   <ToolOutlined style={{ color: "orange", marginRight: 8 }} />{" "}
                   Comprehensive 1 Year Warranty
@@ -97,17 +120,7 @@ const SingleCar = () => {
                 icon={<ShoppingCartOutlined />}
                 showIcon
               />
-              <Alert
-                message={
-                  <div>
-                    <Text strong>Want to purchase this product?</Text>
-                    <br />
-                    Please <Link href="/login">Login</Link> to your account to
-                    start shopping!
-                  </div>
-                }
-                type="success"
-              />
+     
             </div>
           </Card>
         </div>

@@ -47,6 +47,7 @@ const AllCars = () => {
         size="large"
         loading={isLoading || isFetching}
         onChange={handleSearchChange}
+        
       />
     </div>
 
@@ -57,7 +58,7 @@ const AllCars = () => {
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
                   hoverable
-                  style={{ width: 300 }}
+                  style={{ width: 280 }}
                   cover={
                     <Image.PreviewGroup>
                       <Image
