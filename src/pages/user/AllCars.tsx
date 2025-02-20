@@ -1,8 +1,7 @@
-
 import { useGetAllCarsQuery } from "@/redux/features/userApi/userApi";
 import { TCars } from "@/types/cars.types";
 import { TQuearyParams } from "@/types/globalt";
-import { Badge, Button, Card, Image, Tag } from "antd";
+import { Badge, Button, Card, Image, Skeleton, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
@@ -10,8 +9,8 @@ import { useNavigate } from "react-router";
 const AllCars = () => {
   const [params, setParams] = useState<TQuearyParams[]>([]);
   const [page, setPage] = useState(1);
-  const [searchTerm,setSearchTerm]=useState("")
-  const navigate = useNavigate()
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const {
     data: CarsData,
     isLoading,
@@ -24,7 +23,7 @@ const AllCars = () => {
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       setParams(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []);
-    }, 500); 
+    }, 500);
 
     return () => clearTimeout(delaySearch); // Cleanup timeout
   }, [searchTerm]);
@@ -35,25 +34,50 @@ const AllCars = () => {
   const handleViewSingle = (id: string) => {
     navigate(`/cars/${id}`);
   };
-  console.log(CarsData);
+  if (isLoading || isFetching) {
+    return (
+      <div className="container mx-auto p-10 grid grid-cols-4 gap-5">
+        {CarsData?.data
+          ? CarsData.data.map(
+              (
+                a,
+                index:string // 
+              ) => (
+                <div  key={index} className="w-full p-5">
+                  <Skeleton active  paragraph={{ rows: 4 }} />
+                </div>
+              )
+            )
+          : [...Array(4)].map(
+              (
+                _,
+                index 
+              ) => (
+                <div key={index} className="w-full p-5">
+                  <Skeleton active avatar paragraph={{ rows: 3 }} />
+                </div>
+              )
+            )}
+      </div>
+    );
+  }
   return (
     <div className="container  mx-auto p-10">
       <p className="text-center font-bold text-2xl">All Cars</p>
 
-    <div className="mt-10 w-1/2 "> 
-    <Search
-        placeholder="input cars name"
-        enterButton="Search"
-        size="large"
-        loading={isLoading || isFetching}
-        onChange={handleSearchChange}
-        
-      />
-    </div>
+      <div className="mt-10 w-1/2 ">
+        <Search
+          placeholder="input cars name"
+          enterButton="Search"
+          size="large"
+          loading={isLoading || isFetching}
+          onChange={handleSearchChange}
+        />
+      </div>
 
-    <div>
-    <div className="grid grid-cols-4 gap-5">
-          {CarsData?.data?.map((car: TCars,index:string) => (
+      <div>
+        <div className="grid grid-cols-4 gap-5">
+          {CarsData?.data?.map((car: TCars, index: string) => (
             <div key={index} className="my-10">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
@@ -101,7 +125,7 @@ const AllCars = () => {
             </div>
           ))}
         </div>
-    </div>
+      </div>
     </div>
   );
 };
