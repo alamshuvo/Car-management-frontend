@@ -25,7 +25,9 @@ const uesrApi = baseApi.injectEndpoints({
           method: "GET",
           params:params
         };
+      
       },
+      providesTags:["allCars"],
       transformErrorResponse: (
         response: TResoponseRedux<TCars[]>
       ) => {

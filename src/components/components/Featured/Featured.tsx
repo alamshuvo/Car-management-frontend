@@ -1,33 +1,24 @@
-import {
-  useGetAllCarsQuery,
-  useGetCarByIdQuery,
-} from "@/redux/features/userApi/userApi";
-import { TQuearyParams } from "@/types/globalt";
-import { useState } from "react";
+import { useGetAllCarsQuery } from "@/redux/features/userApi/userApi";
 import { Badge, Button, Card, Image, Tag } from "antd";
 import Loading from "../Loading";
 import { useNavigate } from "react-router";
-
+import { TCars } from "@/types/cars.types";
 const { Meta } = Card;
-
 const Featured = () => {
-  const [params, setParams] = useState<TQuearyParams[] | undefined>(undefined);
-  const { data: cars, isLoading, isFetching } = useGetAllCarsQuery(params);
- 
+  const { data: cars, isLoading, isFetching } = useGetAllCarsQuery([]);
   const navigate = useNavigate();
   const handleViewAll = () => {
-    console.log("view all dekhabo daraa");
     navigate("/all-cars");
   };
   const handleViewSingle = (id: string) => {
     navigate(`/cars/${id}`);
-    
   };
   if (isLoading || isFetching) {
     return <Loading></Loading>;
   }
 
-
+  const carsFeatured = cars?.data?.slice(0, 6);
+  
   return (
     <div>
       <p className="text-center text-3xl font-semi-bold">
@@ -36,8 +27,8 @@ const Featured = () => {
 
       <div>
         <div className="grid grid-cols-4 gap-5">
-          {cars?.data?.map((car) => (
-            <div className="my-10">
+          {carsFeatured?.map((car: TCars,index:string) => (
+            <div key={index} className="my-10">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
                   hoverable
