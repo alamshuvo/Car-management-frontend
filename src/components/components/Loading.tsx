@@ -1,4 +1,4 @@
-import loading from '../../../public/spinner-8565_256.gif'
+import loading from '../../assets/spinner-8565_256.gif'
 
 const Loading = () => {
     return (

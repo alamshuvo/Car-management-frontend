@@ -19,7 +19,7 @@ const Navbar = () => {
   if (token) {
     user = varifyToken(token);
   }
-  console.log(user);
+  
   const navigate = useNavigate();
   const handleLogIn = () => {
     navigate("/login");

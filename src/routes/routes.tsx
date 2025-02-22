@@ -9,26 +9,30 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import AllCars from "@/pages/user/AllCars";
 import MainLayout from "@/components/layout/MainLayout";
 import SingleCar from "@/pages/user/SingleCar";
+import Order from "@/components/components/order/Order";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    children:[
-     {
-      index: true,
-      element: <App></App>
-     },
-     {
-      path:"/all-cars",
-      element:<AllCars></AllCars>
-     },
-     {
-      path:`/cars/:id`,
-      element:<SingleCar></SingleCar>
-      
-     }
-    ]
+    children: [
+      {
+        index: true,
+        element: <App></App>,
+      },
+      {
+        path: "/all-cars",
+        element: <AllCars></AllCars>,
+      },
+      {
+        path: `/cars/:id`,
+        element: <SingleCar></SingleCar>,
+      },
+      {
+        path: "/order",
+        element: <Order></Order>,
+      },
+    ],
   },
   {
     path: "/admin",
@@ -50,10 +54,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login></Login>
+    element: <Login></Login>,
   },
- 
- 
 ]);
 
 export default router;

@@ -1,14 +1,59 @@
 import { useGetAllCarsQuery } from "@/redux/features/userApi/userApi";
 import { TCars } from "@/types/cars.types";
 import { TQuearyParams } from "@/types/globalt";
-import { Badge, Button, Card, Image, Skeleton, Tag } from "antd";
+import {
+  Badge,
+  Button,
+  Card,
+  Drawer,
+  DrawerProps,
+  Dropdown,
+  Image,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Skeleton,
+  Space,
+  Tag,
+} from "antd";
 import Meta from "antd/es/card/Meta";
 import Search from "antd/es/input/Search";
+import { Filter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { DownOutlined } from "@ant-design/icons";
+
+const items = [
+  {
+    label:"SEDAN",
+    key:"Sedan"
+  },
+  {
+    label:"SUV",
+    key:"SUV"
+  },
+  {
+    label:"TRUCK",
+    key:"Truck"
+  },
+  {
+    label:"COUPE",
+    key:"Coupe"
+  },
+  {
+    label:"CONVERTIBLE",
+    key:"Convertible"
+  }
+]
+
+
 const AllCars = () => {
   const [params, setParams] = useState<TQuearyParams[]>([]);
   const [page, setPage] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState<DrawerProps["placement"]>("right");
+  const [selectedCategory, setSelectedCategory] = useState("Select Category"); // Initial state for selected category
+
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const {
@@ -34,6 +79,29 @@ const AllCars = () => {
   const handleViewSingle = (id: string) => {
     navigate(`/cars/${id}`);
   };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onChange = (e: RadioChangeEvent) => {
+    setPlacement(e.target.value);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  const handleCategory = (data)=>{
+    console.log(data);
+    setParams(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []);
+  }
+ const menuProps = {
+  items,
+  onClick:(e:string)=>{
+    setSelectedCategory(e.key)
+    handleCategory(e)
+  }
+ }
   if (isLoading || isFetching) {
     return (
       <div className="container mx-auto p-10 grid grid-cols-4 gap-5">
@@ -41,23 +109,18 @@ const AllCars = () => {
           ? CarsData.data.map(
               (
                 a,
-                index:string // 
+                index: string //
               ) => (
-                <div  key={index} className="w-full p-5">
-                  <Skeleton active  paragraph={{ rows: 4 }} />
+                <div key={index} className="w-full p-5">
+                  <Skeleton active paragraph={{ rows: 4 }} />
                 </div>
               )
             )
-          : [...Array(4)].map(
-              (
-                _,
-                index 
-              ) => (
-                <div key={index} className="w-full p-5">
-                  <Skeleton active avatar paragraph={{ rows: 3 }} />
-                </div>
-              )
-            )}
+          : [...Array(4)].map((_, index) => (
+              <div key={index} className="w-full p-5">
+                <Skeleton active avatar paragraph={{ rows: 3 }} />
+              </div>
+            ))}
       </div>
     );
   }
@@ -65,14 +128,55 @@ const AllCars = () => {
     <div className="container  mx-auto p-10">
       <p className="text-center font-bold text-2xl">All Cars</p>
 
-      <div className="mt-10 w-1/2 ">
-        <Search
-          placeholder="input cars name"
-          enterButton="Search"
-          size="large"
-          loading={isLoading || isFetching}
-          onChange={handleSearchChange}
-        />
+      <div className="flex justify-between items-center my-10">
+        <div className=" w-1/2 ">
+          <Search
+            placeholder="input cars name"
+            enterButton={
+              <Button style={{ background: "#58afb1", color: "white" }}>
+                Search
+              </Button>
+            }
+            size="large"
+            loading={isLoading || isFetching}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="">
+          <Space>
+            <Radio.Group value={placement} onChange={onChange}>
+              <Radio value="top">top</Radio>
+              <Radio value="right">right</Radio>
+              <Radio value="bottom">bottom</Radio>
+              <Radio value="left">left</Radio>
+            </Radio.Group>
+            <Button
+              type="primary"
+              className="bg-colorsa-primary"
+              onClick={showDrawer}
+            >
+              Filter <Filter></Filter>
+            </Button>
+          </Space>
+          <Drawer
+            title="Filter Cars"
+            placement={placement}
+            width={400}
+            onClose={onClose}
+            open={open}
+          >
+            <div>
+              <Dropdown className="w-full p-4  justify-start" menu={menuProps} trigger={["click"]}>
+                <Button>
+                  <Space>
+                {selectedCategory}
+                    <DownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+            </div>
+          </Drawer>
+        </div>
       </div>
 
       <div>

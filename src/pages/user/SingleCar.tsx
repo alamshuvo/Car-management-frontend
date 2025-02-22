@@ -5,7 +5,7 @@ import { Button, Card, Image, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import { Alert, Typography } from "antd";
 
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   CheckCircleOutlined,
   RocketOutlined,
@@ -15,6 +15,8 @@ import {
 import { useAppSelector } from "@/redux/hook";
 import { useCurentToken } from "@/redux/auth/authSlice";
 import { ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
+import { useCreateOrderMutation } from "@/redux/features/order/order";
 
 const { Text, Link } = Typography;
 
@@ -22,6 +24,9 @@ const SingleCar = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetCarByIdQuery(id);
   const token = useAppSelector(useCurentToken);
+  const navigate = useNavigate();
+  //const [createOrder,{isLoading:CarIsLoading,isSuccess,data:OrderData,isError}] = useCreateOrderMutation();
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -29,6 +34,24 @@ const SingleCar = () => {
     return <p className="text-center text-red-500">Car not Found !! </p>;
   }
   const carData = data.data;
+  const handleBuy = async () => {
+    if (!carData?.inStock) {
+      return toast.error("this product is not available at this moment");
+    }
+    navigate("/order", { state: { carData } });
+  };
+  //   const toastId ="cart"
+  //  useEffect(()=>{
+  //   if (CarIsLoading) {
+  //     toast.loading("Processing Order",{id:toastId})
+  //   }
+  //   if (isSuccess) {
+  //     toast.success(OrderData?.message,{id:toastId})
+  //   }
+  //   if (isError) {
+  //     toast.error(JSON.stringify(isError),{id:toastId})
+  //   }
+  //  },[CarIsLoading, OrderData?.message, isError, isSuccess])
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-2 gap-6 ">
@@ -43,24 +66,45 @@ const SingleCar = () => {
             </Image.PreviewGroup>
           </Card>
           <div className="mt-5">
-                {token ? (
-                  <div className="">
-                    <Button className="w-full bg-colorsa-secondary p-5 text-xl font-semibold text-colorsa-text">Buy Now <ShoppingBag/></Button>
-                  </div>
-                ) : (
-                  <Alert
-                    message={
-                      <div>
-                        <Text strong>Want to purchase this product?</Text>
-                        <br />
-                        Please <Link href="/login">Login</Link> to your account
-                        to start shopping!
-                      </div>
-                    }
-                    type="success"
-                  />
-                )}
-              </div>
+  {/* If user is not logged in, show login prompt */}
+  {!token ? (
+    <Alert
+      message={
+        <div>
+          <Text strong>Want to purchase this product?</Text>
+          <br />
+          Please <Link href="/login">Login</Link> to your account to start shopping!
+        </div>
+      }
+      type="warning"
+      showIcon
+    />
+  ) : !carData.inStock ? (
+    /* If user is logged in but car is out of stock */
+    <Alert
+      message={
+        <div>
+          <Text strong>Sorry, this car is currently out of stock.</Text>
+          <br />
+          Please check back later or explore other models.
+        </div>
+      }
+      type="error"
+      showIcon
+    />
+  ) : (
+    /* If user is logged in and car is in stock, show Buy Now button */
+    <div>
+      <Button
+        onClick={handleBuy}
+        className="w-full bg-colorsa-secondary p-5 text-xl font-semibold text-colorsa-text"
+      >
+        Buy Now <ShoppingBag />
+      </Button>
+    </div>
+  )}
+</div>
+
         </div>
         <div className="">
           <Card hoverable style={{ width: 500 }}>
@@ -120,7 +164,6 @@ const SingleCar = () => {
                 icon={<ShoppingCartOutlined />}
                 showIcon
               />
-     
             </div>
           </Card>
         </div>

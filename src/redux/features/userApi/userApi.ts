@@ -1,6 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { TCars } from "@/types/cars.types";
 import { TResoponseRedux } from "@/types/globalt";
+import { TUser } from "@/types/user.types";
 
 
 const uesrApi = baseApi.injectEndpoints({
@@ -38,6 +39,18 @@ const uesrApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getUserById: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "GET",
+      }),
+      transformErrorResponse: (response: TResoponseRedux<TUser>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
     getCarById: builder.query({
       query: (id) => ({
         url: `/cars/${id}`,
@@ -55,4 +68,4 @@ const uesrApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRegistationMutation,useGetAllCarsQuery,useGetCarByIdQuery } = uesrApi;
+export const { useRegistationMutation,useGetAllCarsQuery,useGetCarByIdQuery,useGetUserByIdQuery } = uesrApi;
