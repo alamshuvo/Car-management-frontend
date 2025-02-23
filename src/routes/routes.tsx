@@ -10,6 +10,7 @@ import AllCars from "@/pages/user/AllCars";
 import MainLayout from "@/components/layout/MainLayout";
 import SingleCar from "@/pages/user/SingleCar";
 import Order from "@/components/components/order/Order";
+import OrderDetails from "@/components/components/order/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: "/order",
         element: <Order></Order>,
       },
+      {
+       path:"/order/verify",
+       element:<OrderDetails></OrderDetails>
+      }
     ],
   },
   {

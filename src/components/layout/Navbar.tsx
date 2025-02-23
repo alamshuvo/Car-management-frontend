@@ -15,11 +15,8 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useAppDispatch();
   const token = useAppSelector(useCurentToken);
-  let user;
-  if (token) {
-    user = varifyToken(token);
-  }
-  
+  const user = token ? varifyToken(token) : null;
+
   const navigate = useNavigate();
   const handleLogIn = () => {
     navigate("/login");

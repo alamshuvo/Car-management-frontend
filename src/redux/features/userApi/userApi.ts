@@ -13,6 +13,13 @@ const uesrApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    getMe: builder.mutation({
+      query: (userInfo) => ({
+        url: "/users/me",
+        method: "POST",
+        body: userInfo,
+      }),
+    }),
     getAllCars: builder.query({
       query: (args) => {
         const params = new URLSearchParams()
@@ -68,4 +75,4 @@ const uesrApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRegistationMutation,useGetAllCarsQuery,useGetCarByIdQuery,useGetUserByIdQuery } = uesrApi;
+export const { useRegistationMutation,useGetAllCarsQuery,useGetCarByIdQuery,useGetUserByIdQuery,useGetMeMutation } = uesrApi;

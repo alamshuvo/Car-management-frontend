@@ -1,7 +1,7 @@
 import { useCurentToken } from "@/redux/auth/authSlice";
 import { useAppSelector } from "@/redux/hook";
 import { varifyToken } from "@/utils/verifyToken";
-import { Avatar } from "antd";
+import { Avatar, Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { Separator } from "@/components/ui/separator";
@@ -83,14 +83,14 @@ const UserDashboard = () => {
           <p className="text-colorsa-text text-4xl">Role: {`${user?.role}`}</p>
         </div>
         <div className="p-4 my-4 text-colorsa-text text-3xl  grid grid-cols-2 gap-4">
-          <div className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
+          <Tag color="purple" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
             <p className="text-2xl">User Email :</p>
             <p className="text-xl ml-2"> {`${user?.userEmail}`}</p>
-          </div>
-          <div className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
+          </Tag>
+          <Tag color="purple" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
             <p className="text-2xl">User Id :</p>
             <p className="text-xl ml-2"> {`${user?.userId}`}</p>
-          </div>
+          </Tag>
           
         </div>
         <div className="text-center border w-1/2 mx-auto  p-5 rounded-lg shadow-2xl">

@@ -9,48 +9,65 @@ import { Button, Tag } from "antd";
 import Orderinput from "../form/OrderInput";
 import CarInput from "../form/CarInput";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetMeMutation } from "@/redux/features/userApi/userApi";
 
 const Order = () => {
   const [quantity, setQuantity] = useState(1);
-
+  const [totalPrice, setTotalPrice] = useState(0);
   const location = useLocation();
   const token = useAppSelector(useCurentToken);
-  let orderUser;
+
+  let orderUser: { userEmail: string } | null = null;
   if (token) {
     orderUser = varifyToken(token);
   }
-  console.log(orderUser);
 
+  const [createMe, { data: meData }] = useGetMeMutation();
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
   const { carData } = location.state || {};
-  const [totalPrice, setTotalPrice] = useState(carData?.price);
-  console.log(carData);
-  const [createOrder, { isLoading, isSuccess, data: OrderData, isError }] =
-    useCreateOrderMutation();
 
-  const handleQuantityChange = (e) => {
+  useEffect(() => {
+    if (orderUser?.userEmail) {
+      const fetchUser = async () => {
+        try {
+          const res = await createMe(orderUser.userEmail).unwrap();
+          console.log("User Data:", res);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      };
+      fetchUser();
+    }
+  }, [createMe, orderUser?.userEmail]);
+
+  
+
+  useEffect(() => {
+    if (carData?.price) {
+      setTotalPrice(carData.price);
+    }
+  }, [carData]);
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(e.target.value);
-    console.log(newQuantity);
-    // Validate quantity
     if (newQuantity > carData?.quantity) {
       return toast(
         `Quantity should be less than available quantity. Available: ${carData?.quantity}`
       );
     }
-
     setQuantity(newQuantity);
     setTotalPrice(newQuantity * carData?.price);
   };
 
-  const handleData = async (data) => {
-    console.log(typeof data.userEmail);
-    if (data?.quantity > carData?.quantity) {
+  const handleData = async (data: { userEmail: string; quantity: number }) => {
+    if (data.quantity > carData?.quantity) {
       return toast(
-        `Quantity should be less than available quantity your available quantity is ${carData?.quantity}`
+        `Quantity should be less than available quantity. Available: ${carData?.quantity}`
       );
     }
     const orderData = {
-      userEmail: data.userEmail,
+      user: meData?.data?._id,
       car: [
         {
           car: carData._id,
@@ -58,16 +75,29 @@ const Order = () => {
         },
       ],
     };
-    console.log(orderData);
-    createOrder(orderData);
+
+    try {
+      const res = await createOrder(orderData).unwrap();
+      console.log("Order Response:", res);
+
+      if (res?.data) {
+        toast.success("Order Placed Successfully");
+        window.location.href = res.data; // Ensure `res.data` is a valid URL
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order.");
+    }
   };
+
   if (isLoading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
+
   return (
-    <div className="flex justify-center items-center h-[80vh] ">
-      <div className=" w-1/2 mx-auto  rounded-lg bg-colorsa-background shadow-2xl p-5">
-        <p className=" text-colorsa-text text-center my-5 text-xl font-bold">
+    <div className="flex justify-center items-center h-[80vh]">
+      <div className="w-1/2 mx-auto rounded-lg bg-colorsa-background shadow-2xl p-5">
+        <p className="text-colorsa-text text-center my-5 text-xl font-bold">
           CheckOut
         </p>
         <CarForm onSubmit={handleData}>
@@ -80,16 +110,16 @@ const Order = () => {
                 label="Email"
                 value={orderUser?.userEmail}
                 readOnly
-              ></Orderinput>
+              />
               <Orderinput
                 type="text"
                 id="quantity"
                 name="quantity"
-                label={`Quantity available ${carData?.quantity}`}
+                label={`Quantity available: ${carData?.quantity}`}
                 value={quantity}
                 readOnly={false}
                 onChange={handleQuantityChange}
-              ></Orderinput>
+              />
             </div>
             <div className="grid grid-cols-2 my-5 gap-2">
               <Orderinput
@@ -99,27 +129,23 @@ const Order = () => {
                 label="Name Of Car"
                 value={carData?.name}
                 readOnly
-              ></Orderinput>
+              />
               <Orderinput
                 type="number"
                 id="price"
                 name="price"
                 label="Price"
                 value={carData?.price}
-                readOnly={false}
-              ></Orderinput>
+                readOnly // Prevent price modification
+              />
             </div>
           </div>
           <div>
-            <CarInput
-              type="text"
-              id="adress"
-              name="adress"
-              label="Adress"></CarInput>
+            <CarInput type="text" id="address" name="address" label="Address" />
           </div>
           <div className="flex justify-between items-center gap-5">
             <Tag color="cyan" className="p-1 text-xl font-bold">
-              Total Price :{totalPrice} BDT{" "}
+              Total Price: {totalPrice} BDT
             </Tag>
             <Button className="bg-colorsa-secondary font-semibold" htmlType="submit">
               Submit
