@@ -7,7 +7,7 @@ import { Skeleton, Table, Tag } from "antd";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const OrderHistory = () => {
+const OrderHistory:React.FC = () => {
   const token = useAppSelector(useCurentToken);
   const user = token ? varifyToken(token) : null;
 
@@ -112,7 +112,7 @@ const dataSource: DataSource[] =
   ];
 
   if (userLoading || orderLoading) {
-    return Skeleton;
+    return <Skeleton />;
   }
   if (userError || orderError) {
     return <Tag color="red">Error fetching data</Tag>;

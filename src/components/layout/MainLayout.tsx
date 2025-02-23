@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
+import Footer from "@/pages/Footer";
 
 
 
@@ -37,8 +38,8 @@ const MainLayout = () => {
       <Outlet></Outlet>
       </div>
       
-      <div>
-        <p>footer</p>
+      <div className="bg-colorsa-background">
+        <Footer></Footer>
       </div>
     </div>
   );

@@ -11,15 +11,22 @@ import MainLayout from "@/components/layout/MainLayout";
 import SingleCar from "@/pages/user/SingleCar";
 import Order from "@/components/components/order/Order";
 import OrderDetails from "@/components/components/order/OrderDetails";
+import Error from "@/pages/Error";
+import AboutUs from "@/pages/AboutUs";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<Error></Error>,
     children: [
       {
         index: true,
         element: <App></App>,
+      },
+      {
+        path:"/about",
+        element:<AboutUs></AboutUs>
       },
       {
         path: "/all-cars",

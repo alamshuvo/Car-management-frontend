@@ -78,16 +78,16 @@ const UserDashboard = () => {
   return (
     <div className="bg-colorsa-background ">
       <div className="">
-        <div className=" flex flex-col items-center p-5 bg-colorsa-secondary text-colorsa-text">
+        <div className=" flex flex-col items-center p-5 rounded-2xl bg-colorsa-secondary text-colorsa-text">
           <Avatar shape="square" size="large" icon={<UserOutlined />} />
           <p className="text-colorsa-text text-4xl">Role: {`${user?.role}`}</p>
         </div>
         <div className="p-4 my-4 text-colorsa-text text-3xl  grid grid-cols-2 gap-4">
-          <Tag color="purple" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
+          <Tag color="cyan" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
             <p className="text-2xl">User Email :</p>
             <p className="text-xl ml-2"> {`${user?.userEmail}`}</p>
           </Tag>
-          <Tag color="purple" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
+          <Tag color="cyan" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
             <p className="text-2xl">User Id :</p>
             <p className="text-xl ml-2"> {`${user?.userId}`}</p>
           </Tag>
