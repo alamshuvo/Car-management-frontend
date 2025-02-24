@@ -26,6 +26,19 @@ const orderApi = baseApi.injectEndpoints({
         //   };
         // },
       }),
+     totalRevenue: builder.query({
+        query: () => ({
+          url: `/orders/revenue`,
+          method: "GET",
+        }),
+        // transformErrorResponse: (response: TResoponseRedux<TCars>) => {
+        //   console.log("inside redux", response);
+        //   return {
+        //     data: response.data,
+        //     meta: response.meta,
+        //   };
+        // },
+      }),
       getOrderById: builder.query({
         query: (userId) => ({
           url: `/orders/single-order?userId=${userId}`, // Include userId as a query parameter
@@ -42,4 +55,4 @@ const orderApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateOrderMutation,useGetOrderQuery,useVerifyOrderQuery,useGetOrderByIdQuery} = orderApi;
+export const { useCreateOrderMutation,useGetOrderQuery,useVerifyOrderQuery,useGetOrderByIdQuery,useTotalRevenueQuery} = orderApi;
