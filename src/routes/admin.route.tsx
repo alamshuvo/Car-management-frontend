@@ -1,4 +1,5 @@
 import AdminDashboard from "@/pages/admin/AdminDashboard";
+import ManageProducts from "@/pages/admin/ManageProducts";
 import ViewOrders from "@/pages/admin/ViewOrders";
 
 export const adminPaths = [
@@ -10,7 +11,7 @@ export const adminPaths = [
     {
         name:"Manage Product",
         path:"manage-product",
-        element:<AdminDashboard></AdminDashboard>
+        element:<ManageProducts></ManageProducts>
     },
     {
         name:"View orders",

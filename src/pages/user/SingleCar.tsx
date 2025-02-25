@@ -16,7 +16,7 @@ import { useAppSelector } from "@/redux/hook";
 import { useCurentToken } from "@/redux/auth/authSlice";
 import { ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
-
+import { varifyToken } from "@/utils/verifyToken";
 
 const { Text, Link } = Typography;
 
@@ -26,6 +26,10 @@ const SingleCar = () => {
   const token = useAppSelector(useCurentToken);
   const navigate = useNavigate();
   //const [createOrder,{isLoading:CarIsLoading,isSuccess,data:OrderData,isError}] = useCreateOrderMutation();
+  let user;
+  if (token) {
+    user = varifyToken(token);
+  }
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -79,6 +83,19 @@ const SingleCar = () => {
       type="warning"
       showIcon
     />
+  ) : user?.role === "admin" ? (
+    /* If user is an admin, hide the Buy Now button and show an alert */
+    <Alert
+      message={
+        <div>
+          <Text strong>Admins cannot purchase cars.</Text>
+          <br />
+          If you need to manage inventory, please visit the admin dashboard.
+        </div>
+      }
+      type="info"
+      showIcon
+    />
   ) : !carData.inStock ? (
     /* If user is logged in but car is out of stock */
     <Alert
@@ -93,7 +110,7 @@ const SingleCar = () => {
       showIcon
     />
   ) : (
-    /* If user is logged in and car is in stock, show Buy Now button */
+    /* If user is logged in, not an admin, and car is in stock, show Buy Now button */
     <div>
       <Button
         onClick={handleBuy}

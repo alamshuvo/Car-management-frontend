@@ -30,8 +30,8 @@ const MainLayout = () => {
     //     <Outlet />
     //   </div>
     // </div>
-    <div>
-      <div className="bg-colorsa-background">
+    <div className="">
+      <div className="">
         <Navbar></Navbar>
       </div >
       <div className="bg-colorsa-background">

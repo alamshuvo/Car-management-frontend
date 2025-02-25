@@ -31,7 +31,8 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
   return (
-    <div className="flex justify-between items-center max-w-[1320px]  mx-auto p-4">
+    <div className=" bg-colorsa-background">
+      <div className="flex justify-between container mx-auto items-center p-4">
       <div className="flex items-center gap-2">
         <img src={sedan} alt="kk" className="h-10 w-10" />
         <p className="text-2xl font-bold text-colorsa-text ">
@@ -112,6 +113,7 @@ const Navbar = () => {
           </Button>
         )}
       </div>
+    </div>
     </div>
   );
 };
