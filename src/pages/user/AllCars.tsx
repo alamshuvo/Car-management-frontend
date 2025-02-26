@@ -61,7 +61,7 @@ const AllCars = () => {
     isLoading,
     isFetching,
   } = useGetAllCarsQuery([
-    { name: "limit", value: 4 },
+    { name: "limit", value: 0 },
     { name: "page", value: page },
     ...params,
   ]);
@@ -161,7 +161,7 @@ const AllCars = () => {
           <Drawer
             title="Filter Cars"
             placement={placement}
-            width={400}
+            width={300}
             onClose={onClose}
             open={open}
           >
@@ -180,19 +180,20 @@ const AllCars = () => {
       </div>
 
       <div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1  gap-5">
           {CarsData?.data?.map((car: TCars, index: string) => (
-            <div key={index} className="my-10">
+            <div key={index} className="my-10 ">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
                   hoverable
-                  style={{ width: 280 }}
+                  style={{ width: 290 }}
                   cover={
                     <Image.PreviewGroup>
                       <Image
                         alt="example"
                         src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/1-12-400x300.jpg"
                         width="100%"
+                        height={200}
                       />
                     </Image.PreviewGroup>
                   }
@@ -212,9 +213,9 @@ const AllCars = () => {
                       fontSize: 15,
                     }}
                     title={car.model}
-                    description={car.description}
+                    description={car.description.slice(0, 15)}
                   />
-                  <div className="flex justify-center gap-2 my-2 mt-4">
+                  <div className="grid grid-cols-2 gap-2 my-2 mt-4">
                     <Tag color="green">{car.name}</Tag>
                     <Tag color="blue">{car.category}</Tag>
                     {car?.inStock ? (

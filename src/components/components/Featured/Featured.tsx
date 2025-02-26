@@ -26,7 +26,7 @@ const Featured = () => {
       </p>
 
       <div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
           {carsFeatured?.map((car: TCars,index:string) => (
             <div key={index} className="my-10">
               <Badge.Ribbon text={car.price} color="cyan">
@@ -39,6 +39,7 @@ const Featured = () => {
                         alt="example"
                         src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/1-12-400x300.jpg"
                         width="100%"
+                        height={200}
                       />
                     </Image.PreviewGroup>
                   }
@@ -58,9 +59,9 @@ const Featured = () => {
                       fontSize: 15,
                     }}
                     title={car.model}
-                    description={car.description}
+                    description={car.description.slice(0,15)}
                   />
-                  <div className="flex justify-center gap-2 my-2 mt-4">
+                  <div className="grid grid-cols-2 gap-2 my-2 mt-4">
                     <Tag color="green">{car.name}</Tag>
                     <Tag color="blue">{car.category}</Tag>
                     {car?.inStock ? (
