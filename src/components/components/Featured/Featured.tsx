@@ -37,7 +37,7 @@ const Featured = () => {
                     <Image.PreviewGroup>
                       <Image
                         alt="example"
-                        src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/1-12-400x300.jpg"
+                        src={car?.image}
                         width="100%"
                         height={200}
                       />

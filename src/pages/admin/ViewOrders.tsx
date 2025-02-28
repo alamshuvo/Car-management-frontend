@@ -1,5 +1,7 @@
+
 import { useGetOrderQuery } from "@/redux/features/order/order";
-import { Badge, Skeleton } from "antd";
+import { Badge,  Skeleton } from "antd";
+
 
 export interface Transaction {
   id: string;
@@ -28,13 +30,23 @@ export interface Order {
   updatedAt: string;
   __v: number;
 }
-
+// const items = [
+//   { label: "Pending", key: "Pending" },
+//   { label: "Paid", key: "Paid" },
+//   { label: "Shipped", key: "Shipped" },
+//   { label: "Completed", key: "Completed" },
+//   { label: "Cancelled", key: "Cancelled" },
+// ];
 export default function ViewOrders() {
+  // const [selectedCategory, setSelectedCategory] = useState("SUV");
+
   const { isLoading, data } = useGetOrderQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
   const orderData: Order[] = data?.data;
-
+// const handleStatusChange = (id:string) =>{
+// console.log(id);
+// }
   return isLoading ? (
     <Skeleton />
   ) : (
@@ -58,6 +70,7 @@ export default function ViewOrders() {
                 {order?.status}
               </Badge>
             </p>
+        
           </div>
           <div className="">
             <h3 className="font-semibold">Products</h3>
@@ -75,6 +88,7 @@ export default function ViewOrders() {
             <p>Payment Method: {order?.transaction?.method}</p>
             <p>Transaction Date: {order?.transaction?.date_time}</p>
             <p>Transaction Status: {order?.transaction?.bank_status}</p>
+            
           </div>
         </div>
       ))}

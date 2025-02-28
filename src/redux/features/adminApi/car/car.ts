@@ -24,7 +24,8 @@ const carApi = baseApi.injectEndpoints({
         query: ({ carId, updatedData }) => ({
           url: `/cars/${carId}`,
           method: "PATCH",
-          body: updatedData,
+          body: updatedData
+         
         }),
         invalidatesTags: ["allCars"],
       }),

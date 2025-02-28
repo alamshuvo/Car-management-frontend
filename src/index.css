@@ -8,6 +8,7 @@ html {
   scroll-behavior: smooth;
   font-family: "Sora", serif;
 }
+
 @layer base {
   :root {
 

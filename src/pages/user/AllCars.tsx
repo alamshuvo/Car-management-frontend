@@ -13,6 +13,7 @@ import {
   Radio,
   RadioChangeEvent,
   Skeleton,
+  Slider,
   Space,
   Tag,
 } from "antd";
@@ -23,39 +24,71 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { DownOutlined } from "@ant-design/icons";
 
+const sortItems = [
+  {
+    label: "Name (A-Z)",
+    key: "name",
+  },
+  {
+    label: "Name (Z-A)",
+    key: "-name",
+  },
+  {
+    label: "Price (High to Low)",
+    key: "-price",
+  },
+  {
+    label: "Price (Low to High)",
+    key: "price",
+  },
+  {
+    label: "Latest",
+    key: "-createdAt",
+  },
+  {
+    label: "Availability (High to Low)",
+    key: "-inStock",
+  },
+  {
+    label: "Availability (Low to High)",
+    key: "inStock",
+  },
+];
 const items = [
   {
-    label:"SEDAN",
-    key:"Sedan"
+    label: "SEDAN",
+    key: "Sedan",
   },
   {
-    label:"SUV",
-    key:"SUV"
+    label: "SUV",
+    key: "SUV",
   },
   {
-    label:"TRUCK",
-    key:"Truck"
+    label: "TRUCK",
+    key: "Truck",
   },
   {
-    label:"COUPE",
-    key:"Coupe"
+    label: "COUPE",
+    key: "Coupe",
   },
   {
-    label:"CONVERTIBLE",
-    key:"Convertible"
-  }
-]
-
+    label: "CONVERTIBLE",
+    key: "Convertible",
+  },
+];
 
 const AllCars = () => {
   const [params, setParams] = useState<TQuearyParams[]>([]);
+
+
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("right");
   const [selectedCategory, setSelectedCategory] = useState("Select Category"); // Initial state for selected category
-
+  const [selectedSort, setSelectedSort] = useState("Sort By"); // Initial state for selected sort
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
   const {
     data: CarsData,
     isLoading,
@@ -91,17 +124,102 @@ const AllCars = () => {
   const onClose = () => {
     setOpen(false);
   };
-  const handleCategory = (data)=>{
-    console.log(data);
-    setParams(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []);
-  }
- const menuProps = {
-  items,
-  onClick:(e:string)=>{
-    setSelectedCategory(e.key)
-    handleCategory(e)
-  }
- }
+  // const handleCategory = (data) => {
+  //   console.log(data);
+  //   setParams(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []);
+  // };
+  // const handleSort = (data) => {
+  //   console.log(data);
+  // };
+  // const menuProps = {
+  //   items,
+  //   onClick: (e: string) => {
+  //     setSelectedCategory(e.key);
+  //     handleCategory(e);
+  //   },
+  // };
+
+  // const sortMenuProps = {
+  //   sortItems,
+  //   onClick: (e: string) => {
+  //     setSelectedSort(e.key);
+  //     handleSort(e);
+  //   },
+  // };
+  const handleCategory = ({ key }: { key: string }) => {
+    setSelectedCategory(key);
+    setParams((prevParams) => [
+      ...prevParams.filter((p) => p.name !== "category"),
+      { name: "category", value: key },
+    ]);
+  };
+
+  const handleSort = ({ key }: { key: string }) => {
+    console.log(key);
+    setSelectedSort(key);
+    setParams((prevParams) => [
+      ...prevParams.filter((p) => p.name !== "sort"),
+      { name: "sort", value: key },
+    ]);
+  };
+  // const handlePriceChange = (value: [number, number]) => {
+  //   setPriceRange(value);
+  //   console.log(minPrice, maxPrice);
+
+  // };
+
+  // const handleInputChange = (index: number, value: string) => {
+  //   console.log(index,value);
+  //   const newValue = parseInt(value, 10) || 0;
+
+  //   setPriceRange((prevRange) => {
+  //     const newRange: [number, number] = [...prevRange] as [number, number];
+
+  //     if (index === 0) {
+  //       newRange[0] = Math.max(minPrice, Math.min(newValue, newRange[1]));
+  //     } else {
+  //       newRange[1] = Math.min(maxPrice, Math.max(newValue, newRange[0]));
+  //     }
+
+  //     // Update API parameters
+  //     setParams((prevParams) => [
+  //       ...prevParams.filter((p) => p.name !== "minprice" && p.name !== "maxprice"),
+  //       { name: "minprice", value: newRange[0] },
+  //       { name: "maxprice", value: newRange[1] },
+  //     ]);
+
+  //     return newRange;
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   if (CarsData?.data?.length) {
+  //     const prices = CarsData.data.map((car: TCars) => car.price);
+  //     const min = Math.min(...prices);
+  //     const max = Math.max(...prices);
+  //     setMinPrice(min);
+  //     setMaxPrice(max);
+  //     setPriceRange([min, max]); // Update range dynamically
+  //     if (priceRange[0] === minPrice && priceRange[1] === maxPrice) {
+  //       setPriceRange([min, max]); // Update range dynamically
+  //     }
+  //   }
+  // }, [CarsData]);
+
+  
+  
+ 
+
+  const menuProps = {
+    items,
+    onClick: handleCategory, // Corrected function call
+  };
+
+  const sortMenuProps = {
+    items: sortItems, // Fix: use `items` instead of `sortItems`
+    onClick: handleSort, // Corrected function call
+  };
+
   if (isLoading || isFetching) {
     return (
       <div className="container mx-auto p-10 grid grid-cols-4 gap-5">
@@ -165,15 +283,51 @@ const AllCars = () => {
             onClose={onClose}
             open={open}
           >
-            <div>
-              <Dropdown className="w-full p-4  justify-start" menu={menuProps} trigger={["click"]}>
+            <div className="my-5">
+              <p className="my-2 text-center font-semibold">Category</p>
+              <Dropdown
+                className="w-full p-4  justify-start"
+                menu={menuProps}
+                trigger={["click"]}
+              >
                 <Button>
                   <Space>
-                {selectedCategory}
+                    {selectedCategory}
                     <DownOutlined />
                   </Space>
                 </Button>
               </Dropdown>
+            </div>
+            <div>
+              <p className="my-2 text-center font-semibold">Sort By</p>
+              <Dropdown
+                className="w-full p-4  justify-start"
+                menu={sortMenuProps}
+                trigger={["click"]}
+              >
+                <Button>
+                  <Space>
+                    {selectedSort}
+                    <DownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+            </div>
+
+            <div>
+              {/* <p className="my-2 text-center font-semibold">Price Range</p> */}
+              {/* <Slider
+                range
+                step={1}
+                defaultValue={[20, 50000]}
+                onChange={onChangeComplete}
+                //onChangeComplete={onChangeComplete}
+                max={100000}
+                min={400}
+              /> */}
+              <div className="flex justify-between mt-3">
+             
+              </div>
             </div>
           </Drawer>
         </div>
@@ -191,7 +345,7 @@ const AllCars = () => {
                     <Image.PreviewGroup>
                       <Image
                         alt="example"
-                        src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/1-12-400x300.jpg"
+                        src={car?.image}
                         width="100%"
                         height={200}
                       />
