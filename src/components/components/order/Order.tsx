@@ -95,65 +95,76 @@ const Order = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-[80vh]">
-      <div className="w-1/2 mx-auto rounded-lg bg-colorsa-background shadow-2xl p-5">
-        <p className="text-colorsa-text text-center my-5 text-xl font-bold">
-          CheckOut
-        </p>
-        <CarForm onSubmit={handleData}>
-          <div className="my-5">
-            <div className="grid grid-cols-2 my-5 gap-2">
-              <Orderinput
-                type="email"
-                id="email"
-                name="userEmail"
-                label="Email"
-                value={orderUser?.userEmail}
-                readOnly
-              />
-              <Orderinput
-                type="text"
-                id="quantity"
-                name="quantity"
-                label={`Quantity available: ${carData?.quantity}`}
-                value={quantity}
-                readOnly={false}
-                onChange={handleQuantityChange}
-              />
-            </div>
-            <div className="grid grid-cols-2 my-5 gap-2">
-              <Orderinput
-                type="text"
-                id="name"
-                name="name"
-                label="Name Of Car"
-                value={carData?.name}
-                readOnly
-              />
-              <Orderinput
-                type="number"
-                id="price"
-                name="price"
-                label="Price"
-                value={carData?.price}
-                readOnly // Prevent price modification
-              />
-            </div>
-          </div>
-          <div>
-            <CarInput type="text" id="address" name="address" label="Address" />
-          </div>
-          <div className="flex justify-between items-center gap-5">
-            <Tag color="cyan" className="p-1 text-xl font-bold">
-              Total Price: {totalPrice} BDT
-            </Tag>
-            <Button className="bg-colorsa-secondary font-semibold" htmlType="submit">
-              Submit
-            </Button>
-          </div>
-        </CarForm>
+  <div className="flex justify-center items-center min-h-screen p-4">
+  <div className="w-full max-w-2xl mx-auto rounded-lg bg-colorsa-background shadow-2xl p-5">
+    {/* Heading */}
+    <p className="text-colorsa-text text-center my-5 text-2xl font-bold">
+      CheckOut
+    </p>
+
+    {/* Form Section */}
+    <CarForm onSubmit={handleData}>
+      <div className="my-5">
+        {/* First Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-4">
+          <Orderinput
+            type="email"
+            id="email"
+            name="userEmail"
+            label="Email"
+            value={orderUser?.userEmail}
+            readOnly
+          />
+          <Orderinput
+            type="text"
+            id="quantity"
+            name="quantity"
+            label={`Quantity available: ${carData?.quantity}`}
+            value={quantity}
+            readOnly={false}
+            onChange={handleQuantityChange}
+          />
+        </div>
+
+        {/* Second Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-4">
+          <Orderinput
+            type="text"
+            id="name"
+            name="name"
+            label="Name Of Car"
+            value={carData?.name}
+            readOnly
+          />
+          <Orderinput
+            type="number"
+            id="price"
+            name="price"
+            label="Price"
+            value={carData?.price}
+            readOnly
+          />
+        </div>
       </div>
-    </div>
+
+      {/* Address Field */}
+      <div className="my-5">
+        <CarInput type="text" id="address" name="address" label="Address" />
+      </div>
+
+      {/* Total Price & Submit Button */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-5">
+        <Tag color="cyan" className="p-2 text-lg font-bold">
+          Total Price: {totalPrice} BDT
+        </Tag>
+        <Button className="bg-colorsa-secondary font-semibold w-full md:w-auto" htmlType="submit">
+          Submit
+        </Button>
+      </div>
+    </CarForm>
+  </div>
+</div>
+
   );
 };
 

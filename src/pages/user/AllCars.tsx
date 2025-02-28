@@ -370,14 +370,14 @@ const AllCars = () => {
                     description={car.description.slice(0, 15)}
                   />
                   <div className="grid grid-cols-2 gap-2 my-2 mt-4">
-                    <Tag color="green">{car.name}</Tag>
+                    <Tag color="volcano">{car.name}</Tag>
                     <Tag color="blue">{car.category}</Tag>
                     {car?.inStock ? (
                       <Tag color="success">In Stock</Tag>
                     ) : (
                       <Tag color="error">Out of Stock</Tag>
                     )}
-                    <Tag color="green">{car.year}</Tag>
+                    <Tag color="magenta">{car.year}</Tag>
                   </div>
                 </Card>
               </Badge.Ribbon>

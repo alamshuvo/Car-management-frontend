@@ -59,14 +59,14 @@ const SingleCar = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-2 gap-6 ">
+      <div className="grid lg:grid-cols-2 p-4 gap-6 ">
         <div className="">
           <Card>
             <Image.PreviewGroup>
               <Image
                 alt="example"
                 src={data?.data.image}
-                width="100%"
+                width=""
               />
             </Image.PreviewGroup>
           </Card>
@@ -125,7 +125,7 @@ const SingleCar = () => {
 
         </div>
         <div className="">
-          <Card hoverable style={{ width: 500 }}>
+          <Card hoverable style={{ width:"100%" }}>
             <Tag
               bordered={false}
               className="mb-5 rounded-lg p-2"

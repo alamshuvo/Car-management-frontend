@@ -75,7 +75,7 @@ export default function OrderVerification() {
             <CardTitle>Order Details</CardTitle>
           </CardHeader>
           <CardContent>
-            <dl className="grid grid-cols-2 gap-2">
+            <dl className="grid lg:grid-cols-2 gap-2">
               <dt className="font-semibold">Order ID:</dt>
               <dd>{orderData?.order_id}</dd>
               <dt className="font-semibold">Amount:</dt>
@@ -101,7 +101,7 @@ export default function OrderVerification() {
             <CardTitle>Payment Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <dl className="grid grid-cols-2 gap-2">
+            <dl className="grid lg:grid-cols-2 gap-2">
               <dt className="font-semibold">Method:</dt>
               <dd>{orderData?.method}</dd>
               <dt className="font-semibold">Transaction ID:</dt>
@@ -121,7 +121,7 @@ export default function OrderVerification() {
             <CardTitle>Customer Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <dl className="grid grid-cols-2 gap-2">
+            <dl className="grid lg:grid-cols-2 gap-2">
               <dt className="font-semibold">Name:</dt>
               <dd>{orderData?.name}</dd>
               <dt className="font-semibold">Email:</dt>

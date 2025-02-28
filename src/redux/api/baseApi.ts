@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { RootState } from "../store";
 import { setUser, logOut } from "../auth/authSlice";
 const baseQueary = fetchBaseQuery({
-  baseUrl: "http://localhost:5001/api",
+  baseUrl: "https://cars-backend-pearl.vercel.app/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth?.token;
@@ -36,7 +36,7 @@ const baseQuearyWithRefreshToken: BaseQueryFn<
   if (result?.error?.status === 401) {
     // Attempt to refresh the token
     const refreshResult = await fetch(
-      "http://localhost:5001/api/auth/refresh-token",
+      "https://cars-backend-pearl.vercel.app/api/auth/refresh-token",
       {
         method: "POST",
         credentials: "include",

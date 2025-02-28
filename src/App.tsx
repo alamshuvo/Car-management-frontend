@@ -2,6 +2,8 @@ import Dealership from "./components/components/carDealership/Dealership";
 import { EmblaOptionsType } from "embla-carousel";
 import EmblaCarousel from "./components/components/carosul/Carosul";
 import Featured from "./components/components/Featured/Featured";
+import NormalCarousel from "./components/components/NormalCarousel/NormalCarousel";
+import ServiceSection from "./components/components/NormalCarousel/Loacation";
 
 const App = () => {
   const OPTIONS: EmblaOptionsType = { loop: true, duration: 30 };
@@ -25,6 +27,12 @@ const App = () => {
         </div>
         <div className="w-full mt-20">
           <Dealership></Dealership>
+        </div>
+        <div className="w-full mt-20">
+          <NormalCarousel></NormalCarousel>
+        </div>
+        <div className="w-full mt-20">
+       <ServiceSection></ServiceSection>
         </div>
       </div>
     </div>
