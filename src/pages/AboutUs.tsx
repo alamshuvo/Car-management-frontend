@@ -3,16 +3,14 @@ import { Activity, Home, ServerIcon } from "lucide-react";
 import React from "react";
 
 const AboutUs = () => {
-  const description = "Founded as a small repair shop ";
-  const descriptiona = "Expended to full service Car Spot ";
-  const description3 = "Founded as a small repair shop ";
+
   return (
-    <div className="bg-colorsa-background container mx-auto">
-      <div className="flex flex-col justify-center items-center p-10">
+    <div className="bg-colorsa-background container mx-auto lg:p-2 p-4">
+      <div className="flex flex-col justify-center items-center lg:p-10 md:p-5">
         <h2 className="text-2xl font-semibold my-2">Welcome to Car Spot</h2>
-        <p>Your Premium Destination for All Things Cars Since 1995</p>
+        <p className="text-center lg:text-start">Your Premium Destination for All Things Cars Since 1995</p>
       </div>
-      <div className="grid grid-cols-3 gap-5 my-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2  gap-5 my-5">
         <div
           className="
   flex space-y-5 justify-start flex-col p-5 items-start my-4 

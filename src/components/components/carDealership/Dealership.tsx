@@ -5,10 +5,10 @@ import security from "./dealrimg/encrypted.png";
 import d from "./dealrimg/weakness.png";
 const Dealership = () => {
   return (
-    <div className="max-w-[1380px] mx-auto">
-      <div className="flex justify-between ">
-        <div className="w-[50%] space-y-4">
-          <h1 className="text-3xl text-colorsa-text">
+    <div className=" p-4">
+      <div className="flex lg:flex-row flex-col justify-between ">
+        <div className="lg:w-[50%] space-y-4">
+          <h1 className="text-3xl text-colorsa-text lg:text-start text-center">
             About <span className="text-colorsa-primary">Car Spot</span>{" "}
             Dealership
           </h1>
@@ -24,14 +24,14 @@ const Dealership = () => {
             with the latest happenings in the automotive industry.
           </p>
         </div>
-        <div className="w-[50%]">
+        <div className="lg:w-[50%]">
           <img
             src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/gtr.png"
             alt="car"
           />
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
         <div className="flex justify-start items-start flex-col my-5 space-y-3 hover:border-2 hover:translate-5 hover:cursor-pointer transition-all duration-300 ease-in-out p-2">
           <img
             src={dealer}

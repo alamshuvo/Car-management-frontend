@@ -56,6 +56,7 @@ const SingleCar = () => {
   //     toast.error(JSON.stringify(isError),{id:toastId})
   //   }
   //  },[CarIsLoading, OrderData?.message, isError, isSuccess])
+
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-2 gap-6 ">
@@ -64,7 +65,7 @@ const SingleCar = () => {
             <Image.PreviewGroup>
               <Image
                 alt="example"
-                src="https://carspot.scriptsbundle.com/wp-content/uploads/2017/06/1-12-400x300.jpg"
+                src={data?.data.image}
                 width="100%"
               />
             </Image.PreviewGroup>

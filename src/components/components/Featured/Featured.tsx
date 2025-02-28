@@ -28,11 +28,11 @@ const Featured = () => {
       <div>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
           {carsFeatured?.map((car: TCars,index:string) => (
-            <div key={index} className="my-10">
+            <div key={index} className="lg:my-10  lg:p-0 p-5">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
                   hoverable
-                  style={{ width: 300 }}
+                  style={{ width:"100%" }}
                   cover={
                     <Image.PreviewGroup>
                       <Image

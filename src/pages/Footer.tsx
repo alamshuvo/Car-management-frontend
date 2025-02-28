@@ -4,8 +4,8 @@ import { Link } from "react-router";
 
 const Footer = () => {
     return (
-        <div className="  p-10 bg-colorsa-background mt-5">
-            <div className="flex w-1/2 mx-auto my-10 justify-between">
+        <div className="  lg:p-10 p-4 bg-colorsa-background mt-5">
+            <div className="flex lg:flex-row flex-col md:flex-row md:w-1/2 md:justify-between lg:w-1/2 mx-auto my-10 lg:justify-between items-center">
                 <Link to={"/about"}>About</Link>
                 <Link to={"/#"}>Blog</Link>
                 <Link to={"/#"}>Team</Link>

@@ -243,15 +243,15 @@ const AllCars = () => {
     );
   }
   return (
-    <div className="container  mx-auto p-10">
+    <div className="container  mx-auto lg:p-10  p-5">
       <p className="text-center font-bold text-2xl">All Cars</p>
 
-      <div className="flex justify-between items-center my-10">
-        <div className=" w-1/2 ">
+      <div className="lg:flex  justify-between items-center my-10">
+        <div className=" lg:w-1/2 lg:mb-0 my-4 ">
           <Search
             placeholder="input cars name"
             enterButton={
-              <Button style={{ background: "#58afb1", color: "white" }}>
+              <Button style={{ background: "#ce9a98", color: "white" }}>
                 Search
               </Button>
             }
@@ -334,13 +334,13 @@ const AllCars = () => {
       </div>
 
       <div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1  gap-5">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1  lg:gap-5 md:gap-4 gap-2 ">
           {CarsData?.data?.map((car: TCars, index: string) => (
             <div key={index} className="my-10 ">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card
                   hoverable
-                  style={{ width: 290 }}
+                  className="w-auto"
                   cover={
                     <Image.PreviewGroup>
                       <Image
