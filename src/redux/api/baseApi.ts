@@ -11,6 +11,7 @@ import { RootState } from "../store";
 import { setUser, logOut } from "../auth/authSlice";
 const baseQueary = fetchBaseQuery({
   baseUrl: "https://cars-backend-pearl.vercel.app/api",
+  // baseUrl:"http://localhost:5001/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth?.token;

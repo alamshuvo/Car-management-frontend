@@ -1,6 +1,5 @@
 import { Steps } from "antd";
 import { Activity, Home, ServerIcon } from "lucide-react";
-import React from "react";
 
 const AboutUs = () => {
 

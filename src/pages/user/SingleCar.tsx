@@ -65,7 +65,7 @@ const SingleCar = () => {
             <Image.PreviewGroup>
               <Image
                 alt="example"
-                src={data?.data.image}
+                src={data?.data?.image || ""}
                 width=""
               />
             </Image.PreviewGroup>
@@ -97,7 +97,7 @@ const SingleCar = () => {
       type="info"
       showIcon
     />
-  ) : !carData.inStock ? (
+  ) : carData && !carData.inStock ? (
     /* If user is logged in but car is out of stock */
     <Alert
       message={
@@ -124,67 +124,69 @@ const SingleCar = () => {
 </div>
 
         </div>
-        <div className="">
-          <Card hoverable style={{ width:"100%" }}>
-            <Tag
-              bordered={false}
-              className="mb-5 rounded-lg p-2"
-              color={carData.inStock ? "green" : "red"}
-            >
-              {carData.inStock ? "In Stock" : "Out of Stock"}
-            </Tag>
-            <p className="mb-2 text-4xl">{carData.model}</p>
-            <Tag className="m-2" color="blue">
-              {carData.category}
-            </Tag>
-            <div className="mt-5">
+        {carData && (
+          <div className="">
+            <Card hoverable style={{ width:"100%" }}>
               <Tag
-                className="bg-green-100 p-1  text-xl font-bold"
                 bordered={false}
+                className="mb-5 rounded-lg p-2"
+                color={carData.inStock ? "green" : "red"}
               >
-                BDT {carData.price}
+                {carData.inStock ? "In Stock" : "Out of Stock"}
               </Tag>
-            </div>
+              <p className="mb-2 text-4xl">{carData.model}</p>
+              <Tag className="m-2" color="blue">
+                {carData.category}
+              </Tag>
+              <div className="mt-5">
+                <Tag
+                  className="bg-green-100 p-1  text-xl font-bold"
+                  bordered={false}
+                >
+                  BDT {carData.price}
+                </Tag>
+              </div>
 
-            <Separator className="mt-5"></Separator>
-            <p className="mt-5 text-2xl mb-2">Car Description</p>
-            <Meta
-              style={{ fontSize: 20, marginBottom: 20 }}
-              description={carData.description}
-            />
-            <Separator></Separator>
-            <div className="mt-4 space-y-2">
-              <p className="font-semi-bold text-2xl">Premium Feature</p>
               <Separator className="mt-5"></Separator>
-              <Card>
-                <p>
-                  <CheckCircleOutlined
-                    style={{ color: "green", marginRight: 8 }}
-                  />{" "}
-                  Premium Quality Materials & Craftsmanship
-                </p>
-              </Card>
-              <Card>
-                <p>
-                  <RocketOutlined style={{ color: "blue", marginRight: 8 }} />{" "}
-                  Professional Grade Components
-                </p>
-              </Card>
-              <Card>
-                <p>
-                  <ToolOutlined style={{ color: "orange", marginRight: 8 }} />{" "}
-                  Comprehensive 1 Year Warranty
-                </p>
-              </Card>
-              <Alert
-                message="Free Premium Shipping & Assembly Available"
-                type="success"
-                icon={<ShoppingCartOutlined />}
-                showIcon
+              <p className="mt-5 text-2xl mb-2">Car Description</p>
+              <Meta
+                style={{ fontSize: 20, marginBottom: 20 }}
+                description={carData.description}
               />
-            </div>
-          </Card>
-        </div>
+              <Separator></Separator>
+              <div className="mt-4 space-y-2">
+                <p className="font-semi-bold text-2xl">Premium Feature</p>
+                <Separator className="mt-5"></Separator>
+                <Card>
+                  <p>
+                    <CheckCircleOutlined
+                      style={{ color: "green", marginRight: 8 }}
+                    />{" "}
+                    Premium Quality Materials & Craftsmanship
+                  </p>
+                </Card>
+                <Card>
+                  <p>
+                    <RocketOutlined style={{ color: "blue", marginRight: 8 }} />{" "}
+                    Professional Grade Components
+                  </p>
+                </Card>
+                <Card>
+                  <p>
+                    <ToolOutlined style={{ color: "orange", marginRight: 8 }} />{" "}
+                    Comprehensive 1 Year Warranty
+                  </p>
+                </Card>
+                <Alert
+                  message="Free Premium Shipping & Assembly Available"
+                  type="success"
+                  icon={<ShoppingCartOutlined />}
+                  showIcon
+                />
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );

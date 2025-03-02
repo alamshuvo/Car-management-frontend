@@ -1,5 +1,4 @@
 import { Carousel, Image } from "antd";
-import React from "react";
 
 const NormalCarousel = () => {
   return (

@@ -27,7 +27,7 @@ const Featured = () => {
 
       <div>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
-          {carsFeatured?.map((car: TCars,index:string) => (
+          {carsFeatured?.map((car: TCars, index: number) => (
             <div key={index} className="lg:my-10  lg:p-0 p-5">
               <Badge.Ribbon text={car.price} color="cyan">
                 <Card

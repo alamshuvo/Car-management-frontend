@@ -65,7 +65,10 @@ const ManageProducts = () => {
           </Col>
           <ImgCrop rotationSlider>
             <Upload
-              customRequest={({ file }) => uploadToCloudinary(file)}
+               beforeUpload={(file) => {
+                uploadToCloudinary(file);
+                return false; // Prevent default upload
+              }}
               listType="picture-card"
               fileList={fileList}
               onChange={({ fileList }) => setFileList(fileList)}

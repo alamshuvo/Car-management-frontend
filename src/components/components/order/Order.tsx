@@ -52,19 +52,21 @@ const Order = () => {
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity > carData?.quantity) {
-      return toast(
+      toast(
         `Quantity should be less than available quantity. Available: ${carData?.quantity}`
       );
+      return;
     }
     setQuantity(newQuantity);
     setTotalPrice(newQuantity * carData?.price);
   };
 
-  const handleData = async (data: { userEmail: string; quantity: number }) => {
+  const handleData = async (data: { quantity: number; }): Promise<void> => {
     if (data.quantity > carData?.quantity) {
-      return toast(
+      toast(
         `Quantity should be less than available quantity. Available: ${carData?.quantity}`
       );
+      return;
     }
     const orderData = {
       user: meData?.data?._id,

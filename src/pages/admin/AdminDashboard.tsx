@@ -11,6 +11,7 @@ import {
   Dropdown,
   Upload,
   Flex,
+  Skeleton,
 } from "antd";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { useState } from "react";
@@ -24,6 +25,7 @@ import { useCarForm } from "@/utils/CarFromUtils";
 import CarForm from "@/components/components/form/CarForm";
 import CarInput from "@/components/components/form/CarInput";
 import ImgCrop from "antd-img-crop";
+import { TCars } from "@/types/cars.types";
 
 const AdminDashboard = () => {
   const items = [
@@ -43,8 +45,8 @@ const AdminDashboard = () => {
     isLoading: isCarsLoading,
     isFetching: isCarsFetching,
   } = useGetAllCarsQuery([
-    { name: "limit", value: 0 },
-    { name: "page", value: 0 },
+    { name: "limit", value: "0" },
+    { name: "page", value: "0"},
   ]);
 
   const [page, setPage] = useState(1);
@@ -129,7 +131,7 @@ const AdminDashboard = () => {
     { title: "Year", dataIndex: "year" },
     {
       title: "Action",
-      render: (car) => (
+      render: (car:TCars) => (
         <Row gutter={8}>
           <Space>
             <Button onClick={() => handleModalOpen(car, "delete")}>
@@ -144,6 +146,11 @@ const AdminDashboard = () => {
       width: "1%",
     },
   ];
+
+
+if (isCarsFetching || isCarsLoading || isFetching || isLoading || isUpdateLoading) {
+  return <Skeleton></Skeleton>
+}
 
   return (
     <div className="p-5">
@@ -275,7 +282,10 @@ const AdminDashboard = () => {
                 </Col>
                 <ImgCrop rotationSlider>
                   <Upload
-                    customRequest={({ file }) => uploadToCloudinary(file)}
+                   beforeUpload={(file) => {
+                    uploadToCloudinary(file);
+                    return false; // Prevent default upload
+                  }}
                     listType="picture-card"
                     fileList={fileList}
                     onChange={({ fileList }) => setFileList(fileList)}

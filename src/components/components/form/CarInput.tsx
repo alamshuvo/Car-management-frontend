@@ -11,7 +11,7 @@ interface CarInputProps {
 const CarInput: React.FC<CarInputProps> = ({ type, id, name, label }) => {
   const { register, setValue } = useFormContext(); 
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e:any) => {
     setValue(name, e.target.files[0]); 
   };
 

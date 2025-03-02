@@ -14,7 +14,7 @@ import { varifyToken } from "@/utils/verifyToken";
 import SidebarItemGeneratort from "@/utils/SidebarItemGeneratort";
 import { adminPaths } from "@/routes/admin.route";
 import { userPath } from "@/routes/user.route";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, MenuProps } from "antd";
 const userRole = {
   ADMIN: "admin",
   USER: "user",
@@ -27,13 +27,13 @@ const SideVar = () => {
   if (token) {
     user = varifyToken(token);
   }
-  let sideBarItems;
+  let sideBarItems: MenuProps['items'] = [];
   switch ((user as TUser).role) {
     case userRole.ADMIN:
-      sideBarItems = SidebarItemGeneratort(adminPaths, userRole.ADMIN);
+      sideBarItems = SidebarItemGeneratort(adminPaths, userRole.ADMIN) as MenuProps['items'];
       break;
     case userRole.USER:
-      sideBarItems = SidebarItemGeneratort(userPath, userRole.USER);
+      sideBarItems = SidebarItemGeneratort(userPath, userRole.USER) as MenuProps['items'];
       break;
     default:
       break;
@@ -100,7 +100,7 @@ const SideVar = () => {
             margin: "30px 0 ",
           }}
         >
-          <h1 className="text-colorsa-text">Car Management System</h1>
+          <h1 className="text-colorsa-text">Car Management </h1>
         </div>
         <Menu
         className="bg-colorsa-backgrond text-colorsa-text"

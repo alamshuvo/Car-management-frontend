@@ -12,6 +12,7 @@ export type TRoute = {
     element:ReactNode
 }
 export type TSidebarItems = {
+    key:string,
     name:string,
     label:ReactNode,
     children?:TSidebarItems[]

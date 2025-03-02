@@ -1,51 +1,75 @@
-# React + TypeScript + Vite
+# Car Spot - A Car Store (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project OverView 
+The Car Store Application is a responsive web application designed to provide users with a seamless experience for browsing, purchasing, and managing Cars. The application includes features such as user registration and authentication, product management, order processing, and payment integration. The goal is to create a user-friendly, secure, and visually appealing platform for both customers and administrators.
 
-## Expanding the ESLint configuration
+- Live Site -> https://car-management-omega-gules.vercel.app/
+- Presentation -> 
+## Credentials 
+- Admin Access 
+  Email : iftakharAlamshuvo11@gmail.com 
+  password : 0@alamshuvo 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Customer Access 
+  Email : a@gmail.com -- or you can register 
+  password : ab
 
-- Configure the top-level `parserOptions` property like this:
+## Features 
+- User Management 
+- User Authentication: Users can register with their name, email, and password. Passwords are securely hashed before storage.
+- User Role: Customers can view their order history and manage their profiles.
+- Admin Role: Admins can manage products, view orders, and oversee platform activities.
+- JWT Token Management: JSON Web Tokens are used for secure authentication and session management.
+- Logout: Users can log out, which removes the token from local storage and redirects them to the login page.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+# Payment intrigation 
+- Secure Payment Processing : Payment gateway integration for safe and seamless transactions
+# Cars Management 
+- Add new Car with details like name,brand,price,category and availability 
+- Retrieve all Cars or filter using search terms (e,g type brand name)
+- View details of a specific car by its id 
+- Update car information such as price,quantity,or stock status , 
+- Delete a bicycle from the inventory .
+# Order Management 
+- Place orders for car with email,car details ,quantity and total price 
+- Validate stock availability before order creation . 
+- Automatically reduce inventory when an order is placed
+# Inventory Management 
+- Update car inventory dynamically 
+- Mark a car as out of stock when the quantity reaches Zero 
+- Handle insuffcient stock scenarios with proper error message 
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Techonology Stack 
+# Frontend
+- React 
+- TypeScript 
+- React 
+- Redux 
+- RTK Query 
+- ShadCn
+-AntDesign
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Backend 
+- Node js
+- Express 
+- MongoDB
+- Mongoose 
+- JWT for authentication
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-# Car-management-frontend
+
+## Setup Instructions 
+1 . Clone the Repository 
+- https://github.com/alamshuvo/Car-management-frontend.git
+2. Change Directory & npm installation 
+cd client 
+npm i 
+3. Run the applicaton 
+- npm run dev 
+
+# Conclusion 
+ - The car store Application is designed to be a comprehensive solution for both customers and admin , offering a wide range of features and ensuring a smooth,secure,and enjoyable user experience . 
+
+ # contact 
+ For inquiries , reach out to iftakharalamshuvo11@gmail.com

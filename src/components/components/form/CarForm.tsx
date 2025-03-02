@@ -2,26 +2,35 @@ import { ReactNode } from "react";
 import {
   FieldValues,
   FormProvider,
-  SubmitHandler,
   useForm,
+  DefaultValues,
 } from "react-hook-form";
 
-type TFormConfig = {
-  defaultValues?: Record<string, any>;
+type TFormConfig<T extends FieldValues> = {
+  defaultValues?: Partial<T>; // Allow partial default values
   resolver?: any;
 };
 
-type TFormProps = {
-  onSubmit: SubmitHandler<FieldValues>;
+type TFormProps<T extends FieldValues> = {
+  onSubmit: (data: T) => Promise<void>;
   children: ReactNode;
-} & TFormConfig;
+} & TFormConfig<T>;
 
-const CarForm = ({ onSubmit, children, defaultValues, resolver }: TFormProps) => {
-  const methods = useForm({ defaultValues, resolver });
+const CarForm = <T extends FieldValues>({
+  onSubmit,
+  children,
+  defaultValues,
+  resolver,
+}: TFormProps<T>) => {
+  // Use Partial<T> to make defaultValues compatible with T
+  const methods = useForm<T>({
+    defaultValues: defaultValues as DefaultValues<T> | undefined, // Cast to DefaultValues<T> to resolve type issue
+    resolver,
+  });
 
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    onSubmit(data);
-    methods.reset(); // Reset form after submission
+  const handleSubmit = async (data: T) => {
+    await onSubmit(data);
+    methods.reset();
   };
 
   return (

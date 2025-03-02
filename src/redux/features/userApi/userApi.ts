@@ -21,24 +21,23 @@ const uesrApi = baseApi.injectEndpoints({
       }),
     }),
     getAllCars: builder.query({
-      query: (args) => {
-        const params = new URLSearchParams()
-        if (args) {
-          args.forEach(element => {
-            params.append(element.name,element.value as string)
+      query: (args: { name: string; value: string }[]) => {
+        const params = new URLSearchParams();
+    
+        if (args && Array.isArray(args)) {
+          args.forEach((element) => {
+            params.append(element.name, element.value);
           });
         }
+    
         return {
           url: "/cars",
           method: "GET",
-          params:params
+          params: params, // Correct placement of params
         };
-      
       },
-      providesTags:["allCars"],
-      transformErrorResponse: (
-        response: TResoponseRedux<TCars[]>
-      ) => {
+      providesTags: ["allCars"],
+      transformResponse: (response: TResoponseRedux<TCars[]>) => {
         console.log("inside redux", response);
         return {
           data: response.data,
@@ -46,12 +45,13 @@ const uesrApi = baseApi.injectEndpoints({
         };
       },
     }),
+    
     getUserById: builder.query({
       query: (id) => ({
         url: `/users/${id}`,
         method: "GET",
       }),
-      transformErrorResponse: (response: TResoponseRedux<TUser>) => {
+      transformResponse: (response: TResoponseRedux<TUser>) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -63,7 +63,7 @@ const uesrApi = baseApi.injectEndpoints({
         url: `/cars/${id}`,
         method: "GET",
       }),
-      transformErrorResponse: (response: TResoponseRedux<TCars>) => {
+      transformResponse: (response: TResoponseRedux<TCars>) => {
         console.log("inside redux", response);
         return {
           data: response.data,

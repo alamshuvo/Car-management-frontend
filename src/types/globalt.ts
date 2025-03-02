@@ -1,5 +1,5 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
-
+import { JwtPayload } from 'jsonwebtoken';
 type TError = {
   data: {
     message: string;
@@ -27,4 +27,13 @@ export type TResoponseRedux<T> = Tresponse<T> & BaseQueryApi
 export type TQuearyParams = {
   name: string;
   value: boolean | React.Key;
+}
+
+
+
+
+export interface CustomJwtPayload extends JwtPayload {
+  userEmail: string;
+  userId: string;
+  role: string;
 }

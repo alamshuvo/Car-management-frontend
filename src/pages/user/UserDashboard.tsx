@@ -76,13 +76,13 @@ const UserDashboard = () => {
     setShowPassword((prev) => !prev);
   };
   return (
-    <div className="bg-colorsa-background ">
-      <div className="">
-        <div className=" flex flex-col items-center p-5 rounded-2xl bg-colorsa-secondary text-colorsa-text">
+    <div className="bg-colorsa-background p-1">
+      <div className="p-1">
+        <div className=" flex flex-col items-center lg:p-5 p-2 rounded-2xl bg-colorsa-secondary text-colorsa-text">
           <Avatar shape="square" size="large" icon={<UserOutlined />} />
-          <p className="text-colorsa-text text-4xl">Role: {`${user?.role}`}</p>
+          <p className="text-colorsa-text md:text-4xl text-2xl">Role: {`${user?.role}`}</p>
         </div>
-        <div className="p-4 my-4 text-colorsa-text text-3xl  grid grid-cols-2 gap-4">
+        <div className="p-4 my-4 text-colorsa-text text-3xl  grid md:grid-cols-2 grid-cols-1 gap-4">
           <Tag color="cyan" className="text-center flex  shadow-2xl rounded-lg justify-center items-center border ">
             <p className="text-2xl">User Email :</p>
             <p className="text-xl ml-2"> {`${user?.userEmail}`}</p>
@@ -93,10 +93,10 @@ const UserDashboard = () => {
           </Tag>
           
         </div>
-        <div className="text-center border w-1/2 mx-auto  p-5 rounded-lg shadow-2xl">
+        <div className="text-center border md:w-1/2 w-full mx-auto  p-5 rounded-lg shadow-2xl">
             <p className="text-2xl my-5 ">Account Details </p>
             <Separator></Separator>
-            <div className="grid grid-cols-2">
+            <div className="grid md:grid-cols-2 grid-cols-1">
               <p className="text-2xl"> Recent Login</p>
               <p className="text-xl"> {`${issuedAt}`}</p>
               <p className="text-2xl">Updated At</p>
@@ -104,7 +104,7 @@ const UserDashboard = () => {
             </div>
           </div>
         <div className="text-center  mt-10 ">
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-5 p-4">
             <CarForm onSubmit={handlePasswordChange}>
               <Card className="shadow-2xl ">
                 <CardHeader>

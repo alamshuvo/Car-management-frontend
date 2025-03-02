@@ -12,7 +12,8 @@ const OrderHistory:React.FC = () => {
   const user = token ? varifyToken(token) : null;
 
   // ✅ Correctly use the user fetch mutation
-  const [getMe, { data: userData, error: userError, isLoading: userLoading }] =
+ 
+  const [getMe, { error: userError, isLoading: userLoading }] =
     useGetMeMutation();
   const [userId, setUserId] = useState(null);
 
